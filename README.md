@@ -1,5 +1,34 @@
 # Connection
 PDO  mysql数据库连接库
+#自己加的函数使用方法
+```
+db('user')->add(array('name'=>"qqtxt",'password'=>'123456'));//都有 $this->sQuery = @$this->pdo->prepare($query);
+db('user')->save(array('name'=>"qqtxt",'password'=>'123456'));//$this->sQuery->bindParam($k, $v);
+
+/**
+ * db函数用于实例化connection
+ * @param string $table  默认空不设置表名 		db('user u')
+ * @param string $prefix 表前缀  NULL为没有前缀 ''为加C('DB_PREFIX')
+ * @return $connection 数据库连接信息
+ */
+function db($table='',$prefix=''){
+    static $db=null;
+	$guid           =   $tablePrefix . $table;
+	if(!$db){
+		require_once CORE_PATH.'Core/Connection.php';
+		$db = new Core\Connection(C('DB_HOST'), C('DB_USER'), C('DB_PWD'), C('DB_NAME'));
+	}
+	if($table!==''){
+		if($prefix!==NULL){
+			$table=$prefix==='' ? C('DB_PREFIX').$table : $prefix.$table;
+		}
+		$db->setTable($table);
+		$db->fromRaw($db->getTable());
+	}
+	return $db;
+}
+```
+
 
 #具体MySQL/Connection用法
 ```
