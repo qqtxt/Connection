@@ -1,7 +1,8 @@
 # Connection
 PDO  mysql数据库连接库
 
-具体MySQL/Connection用法
+#具体MySQL/Connection用法
+```
 // 初始化db连接
 $db = new \Workerman\MySQL\Connection('host', 'port', 'user', 'password', 'db_name');
 
@@ -69,3 +70,4 @@ $row_count = $db->query("DELETE FROM `Persons` WHERE ID=9");
 $db->beginTrans();
 ....
 $db->commitTrans(); // or $db->rollBackTrans();
+```
